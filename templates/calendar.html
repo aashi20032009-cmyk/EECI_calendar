@@ -247,6 +247,18 @@
 
             initialView: 'dayGridMonth',
 
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek'
+            },
+
+            buttonText: {
+                today: 'Today',
+                month: 'Month',
+                week: 'Week'
+            },
+
             height: 'auto',
 
             events: {{ events|tojson|safe }},
