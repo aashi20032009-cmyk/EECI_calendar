@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +13,12 @@
 <style>
 
     :root {
-        --vanilla: #FFF7E6;
-        --blush: #F7C8D3;
-        --rosewood: #B46A72;
-        --sage: #A8B58A;
-        --misty: #A9B7C6;
-        --midnight: #2D3A47;
+        --vanilla: #f9f5f2;
+        --blush: #35333a;
+        --rosewood: #bdaba4;
+        --sage: #35333a;
+        --misty: #c57f90;
+        --midnight: #a35555;
     }
 
     * {
@@ -29,7 +30,7 @@
         padding: 30px;
         background: var(--vanilla);
         font-family: "Segoe UI", sans-serif;
-        color: var(--midnight);
+        color: var(--sage);
     }
 
     .container {
@@ -46,7 +47,7 @@
         margin: 0;
         font-size: 2.3rem;
         font-weight: 700;
-        color: var(--midnight);
+        color: var(--sage);
     }
 
     .subtitle {
@@ -60,13 +61,13 @@
         backdrop-filter: blur(10px);
         border-radius: 24px;
         padding: 20px;
-        box-shadow: 0 8px 30px rgba(45, 58, 71, 0.10);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     }
 
-    /* FullCalendar toolbar */
+    /* Calendar toolbar */
 
     .fc-toolbar-title {
-        color: var(--midnight);
+        color: var(--sage);
         font-weight: 700;
     }
 
@@ -85,16 +86,16 @@
         background: var(--rosewood) !important;
     }
 
-    /* Calendar grid */
+    /* Grid */
 
     .fc-theme-standard td,
     .fc-theme-standard th,
     .fc-theme-standard .fc-scrollgrid {
-        border-color: rgba(45, 58, 71, 0.12);
+        border-color: rgba(0, 0, 0, 0.08);
     }
 
     .fc-col-header-cell {
-        background: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.3);
     }
 
     /* Events */
@@ -103,22 +104,81 @@
         background: var(--misty) !important;
         border: none !important;
         border-radius: 8px !important;
-        color: var(--midnight) !important;
+        color: white !important;
         font-weight: 600;
         padding: 2px;
     }
 
-    /* Today's date */
+    /* Today */
 
     .fc-day-today {
-        background: rgba(247, 200, 211, 0.35) !important;
+        background: rgba(197, 127, 144, 0.12) !important;
     }
+
+    /* Footer */
 
     .footer {
         margin-top: 20px;
         text-align: center;
         color: var(--rosewood);
         font-size: 0.9rem;
+    }
+
+    /* Modal */
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+
+        left: 0;
+        top: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background: rgba(0, 0, 0, 0.35);
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+
+        width: 90%;
+        max-width: 420px;
+
+        padding: 25px;
+
+        border-radius: 20px;
+
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+
+        position: relative;
+    }
+
+    .modal-content h2 {
+        margin-top: 0;
+        color: var(--midnight);
+    }
+
+    #closeModal {
+        position: absolute;
+
+        top: 15px;
+        right: 20px;
+
+        font-size: 1.6rem;
+        cursor: pointer;
+
+        color: var(--midnight);
+    }
+
+    #modalRoom,
+    #modalTime {
+        font-size: 1rem;
+        line-height: 1.6;
     }
 
     @media (max-width: 768px) {
@@ -138,15 +198,35 @@
 
 </style>
 
+
 </head>
 
 <body>
+
+
+<div id="eventModal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="closeModal">&times;</span>
+
+        <h2 id="modalTitle"></h2>
+
+        <p id="modalRoom"></p>
+
+        <p id="modalTime"></p>
+
+    </div>
+
+</div>
 
 <div class="container">
 
     <div class="header">
         <h1>EECI Schedule</h1>
-        <p class="subtitle">Class schedule calendar</p>
+        <p class="subtitle">
+            Class schedule calendar
+        </p>
     </div>
 
     <div id="calendar"></div>
@@ -173,23 +253,43 @@
 
             eventClick: function(info) {
 
-                alert(
-                    info.event.title +
-                    "\n\n📍 Room: " +
-                    info.event.extendedProps.room +
-                    "\n🕒 Time: " +
-                    info.event.extendedProps.timing
-                );
+                document.getElementById("modalTitle").innerText =
+                    info.event.title;
 
+                document.getElementById("modalRoom").innerText =
+                    "📍 Room: " + info.event.extendedProps.room;
+
+                document.getElementById("modalTime").innerText =
+                    "🕒 Time: " + info.event.extendedProps.timing;
+
+                document.getElementById("eventModal").style.display =
+                    "flex";
             }
 
         });
 
         calendar.render();
 
+        document.getElementById("closeModal").onclick = function() {
+
+            document.getElementById("eventModal").style.display =
+                "none";
+        };
+
+        window.onclick = function(event) {
+
+            const modal = document.getElementById("eventModal");
+
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
     });
 
 </script>
 
+
 </body>
+
 </html>
