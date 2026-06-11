@@ -602,33 +602,15 @@ const event = {
         document.getElementById("deleteEventBtn")
         .onclick = function() {
 
-            if (!selectedEvent) return;
+            console.log("Selected:");
 
-            const confirmDelete = confirm(
-                "Delete this event?"
-            );
+            console.log(selectedEvent.title);
+            console.log(selectedEvent.startStr);
 
-            if (!confirmDelete) return;
+            console.log("Stored:");
 
-            const updatedEvents =
-                customEvents.filter(event => {
+            console.log(customEvents);
 
-                    return !(
-                        event.title === selectedEvent.title &&
-                        event.start === selectedEvent.startStr
-                    );
-
-                });
-
-            localStorage.setItem(
-                "customEvents",
-                JSON.stringify(updatedEvents)
-            );
-
-            selectedEvent.remove();
-
-            document.getElementById("eventModal")
-                .style.display = "none";
         };
 
         window.onclick = function(event) {
