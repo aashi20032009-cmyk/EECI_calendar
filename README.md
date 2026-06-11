@@ -1,127 +1,164 @@
 # EECI Schedule Calendar
 
-A simple weekly scheduling calendar designed to help students manage EECI classes, study schedules, and academic commitments.
+A Flask-based calendar application for viewing EECI class schedules and managing personal academic events in one place.
 
-## 🌐 Live Demo
+Live demo: https://eeci-schedule-calendar.onrender.com/
 
-https://eeci-schedule-calendar.onrender.com/
+## Features
 
----
+- Live EECI schedule extraction from the official EECI schedule page
+- Month and weekly list calendar views using FullCalendar
+- Monday-first calendar layout
+- Dark mode with saved theme preference
+- Custom event creation for personal tasks, extra classes, and events
+- Notes support for custom events
+- Custom event deletion
+- Local browser storage for custom events and theme preference
+- Graceful fallback if the live EECI schedule cannot be loaded
+- Responsive layout for desktop and mobile browsers
 
-## ✨ Features
+## Tech Stack
 
-### 📅 Weekly Calendar View
-- Weekly schedule layout
-- Monday-first week structure
-- Easy week navigation
-- Clean timetable-style interface
-
-### 📚 Academic Scheduling
-- View scheduled EECI classes
-- Organized by day and time
-- Designed for quick schedule reference
-
-### ☁️ Online Access
-- Hosted on Render
-- Accessible from any device with a browser
-
----
-
-## 🛠️ Tech Stack
-
+- Python
+- Flask
+- BeautifulSoup
+- Requests
 - HTML
 - CSS
 - JavaScript
-- OpenUI
-- Git & GitHub
+- FullCalendar
+- LocalStorage
+- Gunicorn
 - Render
 
----
+## Project Structure
 
-## 🚀 Getting Started
+```text
+eeci-calendar/
+|-- app.py
+|-- scraper.py
+|-- parser.py
+|-- events_generator.py
+|-- requirements.txt
+|-- templates/
+|   `-- calendar.html
+|-- static/
+|   |-- image.png
+|   |-- image-1.png
+|   `-- image-2.png
+`-- tests/
+    |-- parser_test.py
+    `-- events_generator_test.py
+```
 
-### Clone the Repository
+## How It Works
+
+1. `scraper.py` fetches the EECI schedule page and reads the schedule table.
+2. `parser.py` converts date text such as `JUN'26` and `13th, 14th` into ISO dates.
+3. `events_generator.py` builds event objects for FullCalendar.
+4. `app.py` passes those events into `templates/calendar.html`.
+5. The browser displays live EECI events together with user-created custom events from LocalStorage.
+
+If the live schedule cannot be fetched, the app still opens and shows saved custom events with a friendly warning message.
+
+## Getting Started
+
+### Clone the repository
 
 ```bash
 git clone https://github.com/aashi20032009-cmyk/eeci-schedule-calendar.git
-```
-
-### Enter the Project Directory
-
-```bash
 cd eeci-schedule-calendar
 ```
 
-### Run Locally
+### Create and activate a virtual environment
 
-Open the project in your preferred development environment and launch it in a web browser.
+```bash
+python -m venv .venv
+```
 
----
+Windows PowerShell:
 
-## 📸 Screenshots
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
 
-### Weekly Calendar
-![Monthly View](image.png)
-![Weekly View](image-1.png)
-![Pop-up](image-2.png)
+macOS/Linux:
 
----
+```bash
+source .venv/bin/activate
+```
 
-## 🎯 Purpose
+### Install dependencies
 
-This project was created to provide a dedicated scheduling interface for EECI classes and study planning, offering a focused alternative to general-purpose calendar applications.
+```bash
+pip install -r requirements.txt
+```
 
----
+### Run locally
 
-## 🗺️ Roadmap
+```bash
+python app.py
+```
 
-### Version 1.0 ✅
-- Weekly calendar view
-- Monday-first week layout
-- Week navigation
-- Online deployment
+Open:
 
-### Version 1.1 🚧
-- Add personal tasks
-- Add extra classes
-- Add custom events
-- Edit/Delete custom entries
+```text
+http://127.0.0.1:5000/
+```
 
-### Version 1.2 📝
-- Notes attached to classes and events
-- View/Edit notes
-- Persistent note storage
+## Deployment
 
-### Version 1.3 ✅❌
-- Attended/Missed indicators
+This project is configured for deployment on Render.
+
+Recommended Render settings:
+
+- Build command: `pip install -r requirements.txt`
+- Start command: `gunicorn app:app`
+- Branch: `main`
+
+If changes do not appear after deployment, use Render's manual deploy option and choose `Clear build cache & deploy`.
+
+## Screenshots
+
+Monthly view:
+
+![Monthly View](image-1.png)
+
+Weekly view:
+
+![weekly View](image.png)
+
+Event pop-up:
+
+![Event Pop-up](image-2.png)
+
+Dark Mode : 
+
+![Dark Mode](image-3.png)
+
+## Current Status
+
+Completed:
+
+- Live EECI schedule calendar
+- Month and week/list views
+- Custom events
+- Notes for custom events
+- Delete custom events
+- Dark mode with saved preference
+- Network-safe fallback when live extraction fails
+
+Planned improvements:
+
+- Edit custom events
 - Attendance tracking
-
-### Future Enhancements
-- Dark mode
-- Mobile-responsive layout
 - Event filtering
-- Import/Export schedules
+- Import/export schedule data
 - Google Calendar integration
-- Progressive Web App (PWA)
+- Progressive Web App support
 
----
+## Author
 
-## 🤝 Contributing
-
-Suggestions and improvements are welcome.
-
-Feel free to fork the repository and submit pull requests.
-
----
-
-## 📄 License
-
-MIT License
-
----
-
-## 👩‍💻 Author
-
-**P Aashi Apuurvaa**
+P Aashi Apuurvaa
 
 GitHub: https://github.com/aashi20032009-cmyk
