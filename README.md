@@ -1,102 +1,125 @@
-# EECI Calendar
+# EECI Schedule Calendar
 
-A Flask-based web application that automatically fetches the EECI GATE coaching schedule and displays it in an interactive calendar interface.
+A simple weekly scheduling calendar designed to help students manage EECI classes, study schedules, and academic commitments.
 
-## Features
+## 🌐 Live Demo
 
-- Automatic schedule fetching from the EECI website
-- Interactive monthly calendar view
-- Subject-wise schedule display
-- Classroom information on click
-- Timing information on click
-- Responsive web interface
+https://eeci-schedule-calendar.onrender.com/
 
-## Tech Stack
+---
 
-- Python
-- Flask
-- Requests
-- BeautifulSoup4
-- FullCalendar.js
-- HTML/CSS/JavaScript
+## ✨ Features
 
-## Project Structure
+### 📅 Weekly Calendar View
+- Weekly schedule layout
+- Monday-first week structure
+- Easy week navigation
+- Clean timetable-style interface
 
-```
-eeci-schedule-calendar/
-│
-├── app.py
-├── scraper.py
-├── parser.py
-├── events_generator.py
-├── requirements.txt
-├── README.md
-│
-├── templates/
-│   └── calendar.html
-│
-├── tests/
-│   ├── parser_test.py
-│   └── events_generator_test.py
-│
-└── .gitignore
-```
+### 📚 Academic Scheduling
+- View scheduled EECI classes
+- Organized by day and time
+- Designed for quick schedule reference
 
-## How It Works
+### ☁️ Online Access
+- Hosted on Render
+- Accessible from any device with a browser
 
-1. The application fetches the latest schedule from the EECI website.
-2. Schedule data is parsed into individual class dates.
-3. Events are generated for each class session.
-4. FullCalendar renders the events in an interactive monthly view.
-5. Clicking an event displays classroom and timing details.
+---
 
-## Installation
+## 🛠️ Tech Stack
 
-Clone the repository:
+- HTML
+- CSS
+- JavaScript
+- OpenUI
+- Git & GitHub
+- Render
+
+---
+
+## 🚀 Getting Started
+
+### Clone the Repository
 
 ```bash
 git clone https://github.com/aashi20032009-cmyk/eeci-schedule-calendar.git
+```
+
+### Enter the Project Directory
+
+```bash
 cd eeci-schedule-calendar
 ```
 
-Install dependencies:
+### Run Locally
 
-```bash
-pip install -r requirements.txt
-```
+Open the project in your preferred development environment and launch it in a web browser.
 
-Run the application:
+---
 
-```bash
-python app.py
-```
+## 📸 Screenshots
 
-Open your browser and visit:
+### Weekly Calendar
+_Add screenshot here_
 
-```text
-http://127.0.0.1:5000
-```
+---
 
-## Example Features
+## 🎯 Purpose
 
-- View all upcoming classes in calendar format.
-- Navigate between months.
-- Click any class entry to view:
-  - Subject
-  - Classroom
-  - Timing
+This project was created to provide a dedicated scheduling interface for EECI classes and study planning, offering a focused alternative to general-purpose calendar applications.
 
-## Future Improvements
+---
 
-- Event color coding by subject
-- Search and filter functionality
-- Weekly and daily views
-- Mobile-friendly UI enhancements
-- Schedule caching for faster loading
-- Public deployment and custom domain
+## 🗺️ Roadmap
 
-## Author
+### Version 1.0 ✅
+- Weekly calendar view
+- Monday-first week layout
+- Week navigation
+- Online deployment
 
-**P. Aashi Apuurvaa**
+### Version 1.1 🚧
+- Add personal tasks
+- Add extra classes
+- Add custom events
+- Edit/Delete custom entries
+
+### Version 1.2 📝
+- Notes attached to classes and events
+- View/Edit notes
+- Persistent note storage
+
+### Version 1.3 ✅❌
+- Attended/Missed indicators
+- Attendance tracking
+
+### Future Enhancements
+- Dark mode
+- Mobile-responsive layout
+- Event filtering
+- Import/Export schedules
+- Google Calendar integration
+- Progressive Web App (PWA)
+
+---
+
+## 🤝 Contributing
+
+Suggestions and improvements are welcome.
+
+Feel free to fork the repository and submit pull requests.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 👩‍💻 Author
+
+**P Aashi Apuurvaa**
 
 GitHub: https://github.com/aashi20032009-cmyk
