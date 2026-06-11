@@ -196,6 +196,62 @@
         }
     }
 
+    #addEventBtn {
+        margin-top: 15px;
+        background: var(--midnight);
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    #addEventBtn:hover {
+        opacity: 0.9;
+    }
+
+    .modal-content input,
+    .modal-content select {
+
+        width: 100%;
+
+        padding: 10px;
+
+        margin-top: 10px;
+
+        border: 1px solid #ddd;
+
+        border-radius: 10px;
+
+        font-size: 0.95rem;
+    }
+
+    #saveEvent {
+
+        width: 100%;
+
+        padding: 12px;
+
+        margin-top: 15px;
+
+        background: var(--midnight);
+
+        color: white;
+
+        border: none;
+
+        border-radius: 10px;
+
+        cursor: pointer;
+
+        font-weight: 600;
+    }
+
+    #saveEvent:hover {
+        opacity: 0.9;
+    }
+
 </style>
 
 
@@ -220,6 +276,50 @@
 
 </div>
 
+<div id="addModal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="closeAddModal">&times;</span>
+
+        <h2>Add Event</h2>
+
+        <input
+            id="eventTitle"
+            placeholder="Event Title">
+
+        <input
+            id="eventDate"
+            type="date">
+
+        <input
+            id="eventStart"
+            type="time">
+
+        <input
+            id="eventEnd"
+            type="time">
+
+        <select id="eventType">
+
+            <option>Personal Task</option>
+
+            <option>Extra Class</option>
+
+            <option>Event</option>
+
+        </select>
+
+        <br><br>
+
+        <button id="saveEvent">
+            Save Event
+        </button>
+
+    </div>
+
+</div>
+
 <div class="container">
 
     <div class="header">
@@ -227,6 +327,9 @@
         <p class="subtitle">
             Class schedule calendar
         </p>
+        <button id="addEventBtn">
+            + Add Event
+        </button>
     </div>
 
     <div id="calendar"></div>
@@ -242,6 +345,18 @@
     document.addEventListener('DOMContentLoaded', function () {
 
         const calendarEl = document.getElementById('calendar');
+        const eeciEvents =
+        {{ events|tojson|safe }};
+
+        const customEvents =
+        JSON.parse(
+            localStorage.getItem("customEvents")
+        ) || [];
+
+        const allEvents = [
+            ...eeciEvents,
+            ...customEvents
+        ];
 
         const calendar = new FullCalendar.Calendar(calendarEl, {
 
@@ -263,7 +378,7 @@
 
             height: 'auto',
 
-            events: {{ events|tojson|safe }},
+            events: allEvents,
 
             eventClick: function(info) {
 
@@ -283,6 +398,45 @@
         });
 
         calendar.render();
+
+        document.getElementById("addEventBtn")
+        .onclick = function() {
+
+            document.getElementById("addModal")
+                .style.display = "flex";
+        };
+
+        document.getElementById("closeAddModal")
+        .onclick = function() {
+
+            document.getElementById("addModal")
+                .style.display = "none";
+        };
+
+        document.getElementById("saveEvent")
+        .onclick = function() {
+
+            const title =
+                document.getElementById("eventTitle").value;
+
+            const date =
+                document.getElementById("eventDate").value;
+
+            const start =
+                document.getElementById("eventStart").value;
+
+            const end =
+                document.getElementById("eventEnd").value;
+
+            const type =
+                document.getElementById("eventType").value;
+
+            console.log(title);
+            console.log(date);
+            console.log(start);
+            console.log(end);
+            console.log(type);
+        };
 
         document.getElementById("closeModal").onclick = function() {
 
