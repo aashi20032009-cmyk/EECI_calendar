@@ -326,6 +326,8 @@
 
         <p id="modalTime"></p>
 
+        <p id="modalNotes"></p>
+
         <button id="deleteEventBtn"
             style="display:none;">
                 Delete Event
@@ -371,6 +373,13 @@
             <option>Event</option>
 
         </select>
+
+        <label for="eventNotes">Notes</label>
+        <textarea
+            id="eventNotes"
+            rows="4"
+            placeholder="Add notes, assignments, reminders..."
+        ></textarea>
 
         <br><br>
 
@@ -434,6 +443,15 @@
             initialView: 'dayGridMonth',
 
             firstDay: 1,
+
+            eventDidMount: function(info) {
+
+                if (info.event.extendedProps.notes) {
+
+                    info.el.title =
+                        "📝 " + info.event.extendedProps.notes;
+                }
+            },
 
             headerToolbar: {
                 left: 'prev,next today',
@@ -503,6 +521,22 @@
 
                 document.getElementById("modalTime").innerText =
                     "🕒 Time: " + info.event.extendedProps.timing;
+                
+                const notes =
+                    info.event.extendedProps.notes;
+
+                if (notes) {
+
+                    document.getElementById("modalNotes")
+                        .innerText = "📝 Notes: " + notes;
+
+                }
+                else {
+
+                    document.getElementById("modalNotes")
+                        .innerText = "";
+
+                }
 
                 document.getElementById("eventModal").style.display =
                     "flex";
@@ -547,6 +581,9 @@
             const location =
                 document.getElementById("eventLocation").value;
 
+            const notes =
+                document.getElementById("eventNotes").value;
+
             let color;
 
 if (type === "Extra Class") {
@@ -575,6 +612,8 @@ const event = {
 
     room: location,
 
+    notes: notes,
+
     timing: `${start} - ${end}`,
 
     isCustom: true
@@ -594,6 +633,7 @@ const event = {
             document.getElementById("eventEnd").value = "";
             document.getElementById("eventLocation").value = "";
             document.getElementById("eventType").selectedIndex = 0;
+            document.getElementById("eventNotes").value = "";
 
             document.getElementById("addModal")
     .style.display = "none";
