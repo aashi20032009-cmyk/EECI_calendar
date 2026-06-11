@@ -61,7 +61,9 @@ Open the project in your preferred development environment and launch it in a we
 ## 📸 Screenshots
 
 ### Weekly Calendar
-_Add screenshot here_
+![Monthly View](image.png)
+![Weekly View](image-1.png)
+![Pop-up](image-2.png)
 
 ---
 
