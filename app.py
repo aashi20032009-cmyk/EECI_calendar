@@ -1,8 +1,6 @@
 from flask import Flask, render_template
 
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import time
+from scraper import get_table_rows
 
 from events_generator import build_events
 
@@ -11,32 +9,28 @@ app = Flask(__name__)
 
 def get_schedule_events():
 
-    driver = webdriver.Chrome()
-
-    driver.get("https://www.eecigate.in/schedule/")
-
-    time.sleep(2)
-
-    table = driver.find_element(By.ID, "tablepress-19")
-
-    rows = table.find_elements(By.CSS_SELECTOR, "tbody tr")
+    rows = get_table_rows()
 
     events = []
 
     for row in rows:
 
-        cols = row.find_elements(By.TAG_NAME, "td")
+        cols = row.find_all("td")
 
         if len(cols) != 4:
             continue
 
-        date_text = cols[0].text
+        date_text = cols[0].get_text("\n", strip=True)
 
-        subject = " ".join(cols[1].text.split())
+        subject = " ".join(
+            cols[1].get_text(" ", strip=True).split()
+        )
 
-        classroom = cols[2].text
+        classroom = cols[2].get_text(strip=True)
 
-        timing = " ".join(cols[3].text.split())
+        timing = " ".join(
+            cols[3].get_text(" ", strip=True).split()
+        )
 
         events.extend(
             build_events(
@@ -47,7 +41,6 @@ def get_schedule_events():
             )
         )
 
-    driver.quit()
 
     return events
 
